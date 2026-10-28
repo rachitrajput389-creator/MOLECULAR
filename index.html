@@ -1,0 +1,2927 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEET Biology Quiz Master - Molecular Basis of Inheritance</title>
+  <style>
+    /* ==========================================================================
+       CSS Variables & Theme Tokens
+       ========================================================================== */
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: rgba(18, 24, 38, 0.88);
+      --bg-card-hover: rgba(28, 36, 56, 0.95);
+      --bg-surface: #111827;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(99, 102, 241, 0.6);
+      
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-light: rgba(99, 102, 241, 0.15);
+      --primary-glow: rgba(99, 102, 241, 0.35);
+      
+      --accent: #ec4899;
+      --accent-glow: rgba(236, 72, 153, 0.35);
+      
+      --success: #10b981;
+      --success-light: rgba(16, 185, 129, 0.15);
+      --success-border: rgba(16, 185, 129, 0.4);
+      
+      --danger: #ef4444;
+      --danger-light: rgba(239, 68, 68, 0.15);
+      --danger-border: rgba(239, 68, 68, 0.4);
+
+      --warning: #f59e0b;
+      --warning-light: rgba(245, 158, 11, 0.15);
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+      --shadow-md: 0 12px 24px -4px rgba(0, 0, 0, 0.35);
+      --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 35px var(--primary-glow);
+      
+      --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-smooth: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ==========================================================================
+       Global Reset & Typography
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(ellipse 90% 60% at 50% -20%, rgba(99, 102, 241, 0.22), transparent 70%),
+        radial-gradient(circle at 10% 90%, rgba(236, 72, 153, 0.15), transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(79, 70, 229, 0.15), transparent 45%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 24px 16px 40px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ==========================================================================
+       App Container & Header
+       ========================================================================== */
+    .app-wrapper {
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .top-brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 4px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      color: var(--text-main);
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    .brand-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 2;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge-live::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    /* ==========================================================================
+       Card Containers
+       ========================================================================== */
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      padding: 32px;
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.6), transparent);
+    }
+
+    /* Screen Visibility States */
+    .screen {
+      display: none;
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==========================================================================
+       1. Landing Screen
+       ========================================================================== */
+    .hero-content {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-light);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 6px 16px;
+      border-radius: 999px;
+      color: #a5b4fc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-md);
+      padding: 18px 16px;
+      transition: var(--transition-fast);
+    }
+
+    .feature-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-2px);
+      border-color: rgba(99, 102, 241, 0.2);
+    }
+
+    .feature-icon {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    .feature-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .feature-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .btn-hero {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 40px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      box-shadow: 0 10px 25px var(--primary-glow);
+      transition: var(--transition-smooth);
+    }
+
+    .btn-hero:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 35px var(--primary-glow);
+    }
+
+    .btn-hero:active {
+      transform: translateY(1px);
+    }
+
+    .btn-hero svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      transition: transform var(--transition-fast);
+    }
+
+    .btn-hero:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* ==========================================================================
+       2. Active Quiz Screen
+       ========================================================================== */
+    .quiz-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      gap: 16px;
+    }
+
+    .q-indicator {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .q-step-text {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+
+    .q-step-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .q-meta-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .timer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timer-pill svg {
+      color: var(--primary);
+    }
+
+    .btn-nav-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      outline: none;
+    }
+
+    .btn-nav-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    /* Linear Progress Track */
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 3.33%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 999px;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Question Viewport & Display Card */
+    .question-viewport {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .question-card {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      transition: var(--transition-smooth);
+    }
+
+    .question-card:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .q-card-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .q-source-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: var(--primary-light);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #a5b4fc;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .q-counter-pill {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+
+    .q-card-content {
+      font-size: 1.12rem;
+      line-height: 1.68;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* Match Tables & Callouts */
+    .match-table-wrap {
+      margin: 16px 0;
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.28);
+    }
+
+    .match-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      text-align: left;
+    }
+
+    .match-table th {
+      background: rgba(99, 102, 241, 0.16);
+      color: #c7d2fe;
+      padding: 10px 16px;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .match-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+    }
+
+    .match-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Options Stack */
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: var(--transition-fast);
+      user-select: none;
+      outline: none;
+    }
+
+    .option-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .option-card:focus-visible {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .option-card.selected {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.22), rgba(139, 92, 246, 0.15));
+      border-color: var(--primary);
+      box-shadow: 0 6px 20px var(--primary-glow);
+    }
+
+    @keyframes crackerCardBurst {
+      0% { transform: scale(0.97); }
+      50% { transform: scale(1.025); }
+      100% { transform: scale(1); }
+    }
+
+    .option-card.cracker-burst {
+      animation: crackerCardBurst 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .option-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      transition: var(--transition-fast);
+      flex-shrink: 0;
+    }
+
+    .option-card:hover .option-badge {
+      color: var(--text-main);
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+
+    .option-card.selected .option-badge {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .option-label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-main);
+      flex: 1;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .option-check-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+
+    .option-card.selected .option-check-icon {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .option-check-icon svg {
+      width: 12px;
+      height: 12px;
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 3;
+      opacity: 0;
+      transition: var(--transition-fast);
+    }
+
+    .option-card.selected .option-check-icon svg {
+      opacity: 1;
+    }
+
+    /* Controls & Navigation Footer */
+    .quiz-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+      gap: 12px;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      outline: none;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 26px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      box-shadow: 0 4px 15px var(--primary-glow);
+      transition: var(--transition-fast);
+      outline: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px var(--primary-glow);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    .btn-finish {
+      background: linear-gradient(135deg, #10b981, #059669);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-finish:hover {
+      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.5);
+    }
+
+    /* ==========================================================================
+       3. Question Navigator Drawer / Modal
+       ========================================================================== */
+    .drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .drawer-overlay.active {
+      display: flex;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .drawer-modal {
+      background: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      max-width: 620px;
+      width: 100%;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .drawer-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .btn-close-modal {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+    }
+
+    .btn-close-modal:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .grid-question-pills {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+      max-height: 360px;
+      overflow-y: auto;
+      padding: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .grid-question-pills {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .nav-pill {
+      aspect-ratio: 1;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+    }
+
+    .nav-pill:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+      background: rgba(99, 102, 241, 0.15);
+    }
+
+    .nav-pill.answered {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #34d399;
+    }
+
+    .nav-pill.current {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .drawer-legend {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+
+    /* Confirm Modal */
+    .confirm-modal {
+      background: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .confirm-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fbbf24;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+    }
+
+    .confirm-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .confirm-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .confirm-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       4. Results Screen
+       ========================================================================== */
+    .results-hero {
+      text-align: center;
+      padding: 20px 0 36px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .score-circle-wrap {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 24px;
+    }
+
+    .score-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .score-bg-circle {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-width: 10;
+    }
+
+    .score-progress-circle {
+      fill: none;
+      stroke: url(#scoreGradient);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 427.26;
+      stroke-dashoffset: 427.26;
+      transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .score-number-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-val {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1;
+    }
+
+    .score-total {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .perf-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .perf-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .perf-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 600px) {
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .stat-value.success { color: #34d399; }
+    .stat-value.danger { color: #f87171; }
+
+    .results-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    /* Review Section */
+    .review-section {
+      padding-top: 32px;
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .review-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .review-filter-bar {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-filter {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .btn-filter:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+    }
+
+    .btn-filter.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .review-cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .review-card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: var(--transition-fast);
+    }
+
+    .review-card.correct {
+      border-left: 4px solid var(--success);
+    }
+
+    .review-card.incorrect {
+      border-left: 4px solid var(--danger);
+    }
+
+    .review-card.unanswered {
+      border-left: 4px solid var(--warning);
+    }
+
+    .review-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .review-q-num {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .status-tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .status-tag.correct {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .status-tag.incorrect {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .status-tag.unanswered {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .review-q-text {
+      font-size: 0.98rem;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .review-answers-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+    }
+
+    .answer-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.88rem;
+    }
+
+    .ans-tag {
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      max-width: 75%;
+      text-align: right;
+    }
+
+    .ans-tag.correct-ans {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+    }
+
+    .ans-tag.your-ans {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+    }
+
+    /* Cracker Canvas */
+    #crackerCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas for festive sparkling cracker explosions -->
+  <canvas id="crackerCanvas"></canvas>
+
+  <!-- SVG Gradients -->
+  <svg width="0" height="0" style="position: absolute;">
+    <defs>
+      <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#6366f1" />
+        <stop offset="50%" stop-color="#ec4899" />
+        <stop offset="100%" stop-color="#10b981" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="app-wrapper">
+    <!-- Top Branding Header -->
+    <header class="top-brand">
+      <div class="brand-logo">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <span>BioMaster NEET · PYQs</span>
+      </div>
+      <div class="header-actions">
+        <span class="badge-live">50 Questions</span>
+      </div>
+    </header>
+
+    <!-- ======================================================================
+         Screen 1: Landing Page / Welcome Hero
+         ====================================================================== -->
+    <main id="screenLanding" class="glass-card screen active">
+      <div class="hero-content">
+        <div class="hero-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          Chapter-Wise NEET Biology PYQs (1993 – 2026)
+        </div>
+        
+        <h1 class="hero-title">Molecular Basis of Inheritance</h1>
+        <p class="hero-subtitle">
+          Master 50 authentic NEET Biology previous year questions on Molecular Basis of Inheritance with complete question text, interactive option cards, real-time timer, celebration crackers, and verified answer keys!
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon">🌍</div>
+            <h3 class="feature-title">50 High-Yield PYQs</h3>
+            <p class="feature-desc">Complete question texts, statements, and match tables from official NEET / AIPMT papers.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">✨</div>
+            <h3 class="feature-title">Interactive Choice</h3>
+            <p class="feature-desc">Tap options with animated festive crackers and sound effects on every selection.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📊</div>
+            <h3 class="feature-title">Performance Report</h3>
+            <p class="feature-desc">Instant score calculation, accuracy analytics, and question-by-question review.</p>
+          </div>
+        </div>
+
+        <button id="btnStartQuiz" class="btn-hero" autofocus>
+          <span>Start 50-Question Quiz</span>
+          <svg viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </main>
+
+    <!-- ======================================================================
+         Screen 2: Active Quiz Screen
+         ====================================================================== -->
+    <section id="screenQuiz" class="glass-card screen" aria-live="polite">
+      <!-- Top Question Meta -->
+      <div class="quiz-meta-bar">
+        <div class="q-indicator">
+          <span class="q-step-text">Molecular Basis of Inheritance</span>
+          <div class="q-step-title">
+            <span id="currentQDisplay">Question 1</span>
+            <span style="font-size: 0.95rem; font-weight: 500; color: var(--text-dim);">of 50</span>
+          </div>
+        </div>
+        
+        <div class="q-meta-actions">
+          <div class="timer-pill" id="timerBadge" title="Elapsed Time">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span id="timerText">00:00</span>
+          </div>
+
+          <button id="btnOpenDrawer" class="btn-nav-toggle" title="Jump to question">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span id="answeredCountText">0/50 Answered</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Linear Progress Bar -->
+      <div class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="50" aria-valuenow="1">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+
+      <!-- Question Viewport -->
+      <div class="question-viewport">
+        <!-- Structured Question Card -->
+        <div class="question-card" id="questionCard">
+          <div class="q-card-topbar">
+            <span class="q-source-badge" id="qSourceBadge">RE-NEET 2026</span>
+            <span class="q-counter-pill" id="qCounterPill">Question 1 of 50</span>
+          </div>
+          <div class="q-card-content" id="qCardContent">
+            <!-- Dynamically populated question text / statements / match table -->
+          </div>
+        </div>
+
+        <!-- Options Container -->
+        <div id="optionsContainer" class="options-container" role="radiogroup" aria-label="Question Options">
+          <!-- Dynamically populated option cards -->
+        </div>
+      </div>
+
+      <!-- Quiz Navigation Controls -->
+      <div class="quiz-footer">
+        <button id="btnPrev" class="btn-secondary" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Previous
+        </button>
+
+        <button id="btnClearAns" class="btn-secondary" style="font-size: 0.85rem;" title="Clear selected answer">
+          Clear Choice
+        </button>
+
+        <button id="btnNext" class="btn-primary">
+          Next
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         Screen 3: Results & Analytics Screen
+         ====================================================================== -->
+    <section id="screenResults" class="glass-card screen">
+      <div class="results-hero">
+        <!-- Score Circular Progress Ring -->
+        <div class="score-circle-wrap">
+          <svg class="score-svg" viewBox="0 0 160 160">
+            <circle class="score-bg-circle" cx="80" cy="80" r="68"></circle>
+            <circle class="score-progress-circle" id="scoreRing" cx="80" cy="80" r="68"></circle>
+          </svg>
+          <div class="score-number-box">
+            <div class="score-val" id="scoreDisplay">0</div>
+            <div class="score-total">/ 50 Points</div>
+          </div>
+        </div>
+
+        <div id="perfBadge" class="perf-badge">Performance Grade</div>
+        <h2 id="perfTitle" class="perf-title">Quiz Completed!</h2>
+        <p id="perfSubtitle" class="perf-subtitle">Here is a detailed breakdown of your answers and conceptual accuracy.</p>
+
+        <!-- Stats Metric Grid -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Accuracy</div>
+            <div class="stat-value" id="statAccuracy">0%</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Correct</div>
+            <div class="stat-value success" id="statCorrect">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Incorrect</div>
+            <div class="stat-value danger" id="statIncorrect">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Time Taken</div>
+            <div class="stat-value" id="statTime">00:00</div>
+          </div>
+        </div>
+
+        <div class="results-actions">
+          <button id="btnRetake" class="btn-hero" style="font-size: 0.95rem; padding: 13px 28px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+            Retake Quiz
+          </button>
+          <button id="btnHome" class="btn-secondary" style="font-size: 0.95rem; padding: 13px 24px;">
+            Home Page
+          </button>
+        </div>
+      </div>
+
+      <!-- Question-by-Question Review -->
+      <div class="review-section">
+        <div class="review-header">
+          <h3 class="review-title">Detailed Answer Review</h3>
+          <div class="review-filter-bar">
+            <button class="btn-filter active" data-filter="all">All (50)</button>
+            <button class="btn-filter" data-filter="correct">Correct</button>
+            <button class="btn-filter" data-filter="incorrect">Incorrect</button>
+            <button class="btn-filter" data-filter="unanswered">Unanswered</button>
+          </div>
+        </div>
+
+        <div id="reviewCardsList" class="review-cards-list">
+          <!-- Dynamically populated review cards -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ======================================================================
+       Modal 1: Question Navigator Grid
+       ====================================================================== -->
+  <div id="drawerOverlay" class="drawer-overlay" role="dialog" aria-modal="true" aria-label="Question Navigator">
+    <div class="drawer-modal">
+      <div class="drawer-header">
+        <h3 class="drawer-title">Question Navigator</h3>
+        <button id="btnCloseDrawer" class="btn-close-modal" aria-label="Close Navigator">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div id="gridPills" class="grid-question-pills">
+        <!-- 50 Question Pills rendered dynamically -->
+      </div>
+
+      <div class="drawer-legend">
+        <div class="legend-item">
+          <span class="legend-dot" style="background: var(--primary);"></span> Current
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot" style="background: #34d399;"></span> Answered
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot" style="background: rgba(255, 255, 255, 0.2);"></span> Unanswered
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       Modal 2: Submission Confirmation Dialog
+       ====================================================================== -->
+  <div id="confirmOverlay" class="drawer-overlay" role="dialog" aria-modal="true" aria-label="Submit Confirmation">
+    <div class="confirm-modal">
+      <div class="confirm-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <h3 class="confirm-title" id="confirmTitle">Submit Quiz?</h3>
+      <p class="confirm-desc" id="confirmDesc">
+        Are you sure you want to finish the quiz? You will not be able to change your answers once submitted.
+      </p>
+      <div class="confirm-actions">
+        <button id="btnCancelSubmit" class="btn-secondary">Review Answers</button>
+        <button id="btnConfirmSubmit" class="btn-primary btn-finish">Submit Quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       JavaScript Logic
+       ====================================================================== -->
+  <script>
+    /* -------------------------------------------------------------------------
+       50 NEET PYQs: Molecular Basis of Inheritance (With Complete Text, Options & Keys)
+       ------------------------------------------------------------------------- */
+    const questions = [
+    {
+        "id":  1,
+        "answer":  "B",
+        "year":  "RE-NEET 2026",
+        "answerText":  "Gene i is constitutively expressed",
+        "options":  [
+                        "Galactose can act as an inducer of lac operon",
+                        "Gene i is constitutively expressed",
+                        "Lactose activates repressor to bind to the operator",
+                        "Genes i, z, y and a share single common promoter"
+                    ],
+        "question":  "Which of the following statements about lac-operon is correct?"
+    },
+    {
+        "id":  2,
+        "answer":  "C",
+        "year":  "RE-NEET 2026",
+        "answerText":  "RNA polymerase II",
+        "options":  [
+                        "DNA polymerase",
+                        "RNA polymerase I",
+                        "RNA polymerase II",
+                        "RNA polymerase III"
+                    ],
+        "question":  "Which of the following enzymes synthesizes precursor mRNA?"
+    },
+    {
+        "id":  3,
+        "answer":  "C",
+        "year":  "NEET 2026",
+        "answerText":  "beta-galactosidase",
+        "options":  [
+                        "permease",
+                        "transacetylase",
+                        "beta-galactosidase",
+                        "the repressor of lac operon"
+                    ],
+        "question":  "In the lac operon, the z gene codes for"
+    },
+    {
+        "id":  4,
+        "answer":  "D",
+        "year":  "NEET 2026",
+        "answerText":  "A, B, C, D and E",
+        "options":  [
+                        "A, B, C and D only",
+                        "A, C, D and E only",
+                        "B, C, D and E only",
+                        "A, B, C, D and E"
+                    ],
+        "question":  "Which of the following statements are correct with reference to a transcription unit?\u003cbr\u003eA. A transcription unit in DNA is defined primarily by three regions : promoter, structural gene and terminator.\u003cbr\u003eB. The promoter is said to be located towards the 5\u0027-end of the structural gene.\u003cbr\u003eC. The promoter is a DNA sequence that provides binding site for RNA polymerase.\u003cbr\u003eD. The promoter defines the template and coding strands.\u003cbr\u003eE. The terminator is located towards the 3\u0027-end of the coding strand and it defines the end of the process of transcription.\u003cbr\u003e\u003cbr\u003eChoose the correct answer from the options given below:"
+    },
+    {
+        "id":  5,
+        "answer":  "C",
+        "year":  "NEET 2026",
+        "answerText":  "A, E, C, B, D",
+        "options":  [
+                        "A, B, D, C, E",
+                        "A, D, B, E, C",
+                        "A, E, C, B, D",
+                        "A, E, B, C, D"
+                    ],
+        "question":  "Arrange the following steps of DNA fingerprinting in a correct sequence.\u003cbr\u003eA. Isolation of DNA and its digestion by restriction endonucleases.\u003cbr\u003eB. Hybridisation using a labelled VNTR probe.\u003cbr\u003eC. Transferring of separated DNA fragments to synthetic membranes.\u003cbr\u003eD. Detection of hybridised DNA fragments by autoradiography.\u003cbr\u003eE. Separation of DNA fragments by electrophoresis.\u003cbr\u003e\u003cbr\u003eChoose the correct answer from the options given below :"
+    },
+    {
+        "id":  6,
+        "answer":  "A",
+        "year":  "NEET 2026",
+        "answerText":  "A, C and E only",
+        "options":  [
+                        "A, C and E only",
+                        "B, D and E only",
+                        "C, D and E only",
+                        "A, B and D only"
+                    ],
+        "question":  "Which of the following statements are correct with reference to packaging of DNA helix ?\u003cbr\u003eA. Histones are organized to form a unit of eight molecules called histone octamer.\u003cbr\u003eB. Histones are negatively charged basic proteins.\u003cbr\u003eC. Histones are rich in the basic amino acid residues - lysine and arginine.\u003cbr\u003eD. The positively charged DNA is wrapped around the histone octamer to form nucleosome.\u003cbr\u003eE. The packaging of chromatin at higher levels requires an additional set of proteins called non-histone chromosomal proteins.\u003cbr\u003e\u003cbr\u003eChoose the correct answer from the options given below :"
+    },
+    {
+        "id":  7,
+        "answer":  "A",
+        "year":  "NEET 2026",
+        "answerText":  "GUG",
+        "options":  [
+                        "GUG",
+                        "AUG",
+                        "GAG",
+                        "CAG"
+                    ],
+        "question":  "The sixth mutant codon of beta globin gene causing polymerization of Haemoglobin and change in RBC shape is"
+    },
+    {
+        "id":  8,
+        "answer":  "A",
+        "year":  "NEET 2025",
+        "answerText":  "Chromosome 1",
+        "options":  [
+                        "Chromosome 1",
+                        "Chromosome 10",
+                        "Chromosome X",
+                        "Chromosome Y"
+                    ],
+        "question":  "Which chromosome in the human genome has the highest number of genes?"
+    },
+    {
+        "id":  9,
+        "answer":  "A",
+        "year":  "NEET 2025",
+        "answerText":  "A-IV, B-III, C-I, D-II",
+        "options":  [
+                        "A-IV, B-III, C-I, D-II",
+                        "A-III, B-II, C-IV, D-I",
+                        "A-II, B-IV, C-I, D-III",
+                        "A-IV, B-II, C-I, D-III"
+                    ],
+        "question":  "Match List-I with List-II :\u003cbr\u003e\u003cdiv class=\u0027match-table-wrap\u0027\u003e\u003ctable class=\u0027match-table\u0027\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eList - I\u003c/th\u003e\u003cth\u003eList - II\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eA. Alfred Hershey and Martha Chase\u003c/td\u003e\u003ctd\u003eI. Streptococcus pneumoniae\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eB. Euchromatin\u003c/td\u003e\u003ctd\u003eII. Densely packed and dark-stained\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eC. Frederick Griffith\u003c/td\u003e\u003ctd\u003eIII. Loosely packed and light-stained\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eD. Heterochromatin\u003c/td\u003e\u003ctd\u003eIV. DNA as genetic material confirmation\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003eChoose the correct answer from the options given below:"
+    },
+    {
+        "id":  10,
+        "answer":  "D",
+        "year":  "NEET 2025",
+        "answerText":  "B, C, D only",
+        "options":  [
+                        "B, C, E only",
+                        "C, D, E only",
+                        "A, B, C only",
+                        "B, C, D only"
+                    ],
+        "question":  "Which of the following are the post-transcriptional events in an eukaryotic cell?\u003cbr\u003eA. Transport of pre-mRNA to cytoplasm prior to splicing.\u003cbr\u003eB. Removal of introns and joining of exons.\u003cbr\u003eC. Addition of methyl group at 5\u0027 end of hnRNA.\u003cbr\u003eD. Addition of adenine residues at 3\u0027 end of hnRNA.\u003cbr\u003eE. Base pairing of two complementary RNAs.\u003cbr\u003e\u003cbr\u003eChoose the correct answer from the options given below :"
+    },
+    {
+        "id":  11,
+        "answer":  "C",
+        "year":  "NEET 2025",
+        "answerText":  "Both statement I and statement II are correct",
+        "options":  [
+                        "Statement I is correct but statement II is incorrect",
+                        "Statement I is incorrect but statement II is correct",
+                        "Both statement I and statement II are correct",
+                        "Both statement I and statement II are incorrect"
+                    ],
+        "question":  "Given below are two statements:\u003cbr\u003e\u003cbr\u003e\u003cstrong\u003eStatement I:\u003c/strong\u003e In the RNA world, RNA is considered the first genetic material evolved to carry out essential life processes. RNA acts as a genetic material and also as a catalyst for some important biochemical reactions in living systems. Being reactive, RNA is unstable.\u003cbr\u003e\u003cstrong\u003eStatement II:\u003c/strong\u003e DNA evolved from RNA and is a more stable genetic material. Its double helical strands being complementary, resist changes by evolving repairing mechanism.\u003cbr\u003e\u003cbr\u003eIn the light of the above statements, choose the most appropriate answer from the options given below :"
+    },
+    {
+        "id":  12,
+        "answer":  "B",
+        "year":  "NEET 2025",
+        "answerText":  "Statement I is incorrect but statement II is correct",
+        "options":  [
+                        "Statement I is correct but statement II is incorrect",
+                        "Statement I is incorrect but statement II is correct",
+                        "Both statement I and statement II are correct",
+                        "Both statement I and statement II are incorrect"
+                    ],
+        "question":  "Given below are two statements :\u003cbr\u003e\u003cbr\u003e\u003cstrong\u003eStatement I :\u003c/strong\u003e Transfer RNAs and ribosomal RNA do not interact with mRNA.\u003cbr\u003e\u003cstrong\u003eStatement II :\u003c/strong\u003e RNA interference (RNAi) takes place in all eukaryotic organisms as a method of cellular defence.\u003cbr\u003e\u003cbr\u003eIn the light of the above statements, choose the most appropriate answer from the options given below :"
+    },
+    {
+        "id":  13,
+        "answer":  "C",
+        "year":  "NEET 2025",
+        "answerText":  "George Gamow",
+        "options":  [
+                        "Jacque Monod",
+                        "Franklin Stahl",
+                        "George Gamow",
+                        "Francis Crick"
+                    ],
+        "question":  "Who proposed that the genetic code for amino acids should be made up of three nucleotides?"
+    },
+    {
+        "id":  14,
+        "answer":  "A",
+        "year":  "NEET 2025",
+        "answerText":  "Ï (rho)",
+        "options":  [
+                        "Ï (rho)",
+                        "Î³ (gamma)",
+                        "Î± (alpha)",
+                        "Ïƒ (sigma)"
+                    ],
+        "question":  "Which factor is important for termination of transcription?"
+    },
+    {
+        "id":  15,
+        "answer":  "D",
+        "year":  "NEET 2024 (Re-Examination)",
+        "answerText":  "ori site",
+        "options":  [
+                        "Recognition sequence",
+                        "Cloning site",
+                        "Restriction site",
+                        "ori site"
+                    ],
+        "question":  "In a chromosome, there is a specific DNA sequence, responsible for initiating replication. It is called as:"
+    },
+    {
+        "id":  16,
+        "answer":  "A",
+        "year":  "NEET 2024 (Re-Examination)",
+        "answerText":  "Statement I is true but Statement II is false",
+        "options":  [
+                        "Statement I is true but Statement II is false",
+                        "Statement I is false but Statement II is true",
+                        "Both Statement I and Statement II are true",
+                        "Both Statement I and Statement II are false"
+                    ],
+        "question":  "Given below are two statements regarding RNA polymerase in prokaryotes.\u003cbr\u003e\u003cbr\u003e\u003cstrong\u003eStatement I :\u003c/strong\u003e In prokaryotes, RNA polymerase is capable of catalysing the process of elongation during transcription.\u003cbr\u003e\u003cstrong\u003eStatement II :\u003c/strong\u003e RNA polymerase associate transiently with â€˜Rhoâ€™ factor to initiate transcription.\u003cbr\u003e\u003cbr\u003eIn the light of the above statements, choose the correct answer from the options given below :"
+    },
+    {
+        "id":  17,
+        "answer":  "C",
+        "year":  "NEET 2024 (Re-Examination)",
+        "answerText":  "Both Statement I and Statement II are correct",
+        "options":  [
+                        "Statement I is correct but Statement II is incorrect",
+                        "Statement I is incorrect but Statement II is correct",
+                        "Both Statement I and Statement II are correct",
+                        "Both Statement I and Statement II are incorrect"
+                    ],
+        "question":  "Given below are two statements:\u003cbr\u003e\u003cbr\u003e\u003cstrong\u003eStatement I:\u003c/strong\u003e In eukaryotes there are three RNA polymerases in the nucleus in addition to the RNA polymerase found in the organelles.\u003cbr\u003e\u003cstrong\u003eStatement II:\u003c/strong\u003e All the three RNA polymerases in eukaryotic nucleus have different roles.\u003cbr\u003e\u003cbr\u003eIn the light of the above statements, choose the correct answer from the options given below:"
+    },
+    {
+        "id":  18,
+        "answer":  "A",
+        "year":  "NEET 2024 (Re-Examination)",
+        "answerText":  "Statement I is true but Statement II is false",
+        "options":  [
+                        "Statement I is true but Statement II is false",
+                        "Statement I is false but Statement II is true",
+                        "Both Statement I and Statement II are true",
+                        "Both Statement I and Statement II are false"
+                    ],
+        "question":  "Given below are two statements :\u003cbr\u003e\u003cbr\u003e\u003cstrong\u003eStatement I:\u003c/strong\u003e In the lac operon, the z gene codes for beta-galactosidase which is primarily responsible for the hydrolysis of lactose into galactose and glucose.\u003cbr\u003e\u003cstrong\u003eStatement II:\u003c/strong\u003e In addition to lactose, glucose or galactose can also induce lac operon.\u003cbr\u003e\u003cbr\u003eIn the light of the above statements, choose the correct answer from the options given below :"
+    },
+    {
+        "id":  19,
+        "answer":  "A",
+        "year":  "NEET 2024 (Re-Examination)",
+        "answerText":  "Statement I is true but Statement II is false.",
+        "options":  [
+                        "Statement I is true but Statement II is false.",
+                        "Statement I is false but Statement II is true.",
+                        "Both Statement I and Statement II are true.",
+                        "Both Statement I and Statement II are false."
+                    ],
+        "question":  "Given below are two statements :\u003cbr\u003e\u003cbr\u003e\u003cstrong\u003eStatement I :\u003c/strong\u003e RNA interference takes place in all Eukaryotic organisms as method of cellular defense.\u003cbr\u003e\u003cstrong\u003eStatement II :\u003c/strong\u003e RNAi involves the silencing of a specific mRNA due to a complementary single-stranded RNA molecule that binds and prevents translation of mRNA\u003cbr\u003e\u003cbr\u003eIn the light of the above statements, choose the correct answer from the options given below."
+    },
+    {
+        "id":  20,
+        "answer":  "C",
+        "year":  "NEET 2024",
+        "answerText":  "Permease",
+        "options":  [
+                        "Beta-galactosidase",
+                        "Acetylase",
+                        "Permease",
+                        "Polymerase"
+                    ],
+        "question":  "The lactose present in the growth medium of bacteria is transported to the cell by the action of"
+    },
+    {
+        "id":  21,
+        "answer":  "D",
+        "year":  "NEET 2024",
+        "answerText":  "Promotor, Structural gene, Terminator",
+        "options":  [
+                        "Repressor, Operator gene, Structural gene",
+                        "Structural gene, Transposons, Operator gene",
+                        "Inducer, Repressor, Structural gene",
+                        "Promotor, Structural gene, Terminator"
+                    ],
+        "question":  "A transcription unit in DNA is defined primarily by the three regions in DNA and these are with respect to upstream and down stream end;"
+    },
+    {
+        "id":  22,
+        "answer":  "D",
+        "year":  "NEET 2024",
+        "answerText":  "The DNA dependent DNA polymerase catalyses polymerization in 5\u0027 â†’ 3\u0027 direction",
+        "options":  [
+                        "The DNA dependent DNA polymerase catalyses polymerization in one direction that is 3\u0027 â†’ 5\u0027",
+                        "The DNA dependent RNA polymerase catalyses polymerization in one direction, that is 5\u0027 â†’ 3\u0027",
+                        "The DNA dependent DNA polymerase catalyses polymerization in 5\u0027 â†’ 3\u0027 as well as 3\u0027 â†’ 5\u0027 direction",
+                        "The DNA dependent DNA polymerase catalyses polymerization in 5\u0027 â†’ 3\u0027 direction"
+                    ],
+        "question":  "Which of the following statement is correct regarding the process of replication in E.coli?"
+    },
+    {
+        "id":  23,
+        "answer":  "B",
+        "year":  "NEET 2024",
+        "answerText":  "A-III, B-IV, C-I, D-II",
+        "options":  [
+                        "A-III, B-II, C-I, D-IV",
+                        "A-III, B-IV, C-I, D-II",
+                        "A-II, B-III, C-IV, D-I",
+                        "A-IV, B-II, C-II, D-III"
+                    ],
+        "question":  "Match List I with List II :\u003cbr\u003e\u003cdiv class=\u0027match-table-wrap\u0027\u003e\u003ctable class=\u0027match-table\u0027\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eList - I\u003c/th\u003e\u003cth\u003eList - II\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eA. Frederick Griffith\u003c/td\u003e\u003ctd\u003eI. Genetic code\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eB. Francois Jacob \u0026 Jacque Monod\u003c/td\u003e\u003ctd\u003eII. Semi-conservative mode of DNA replication\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eC. Har Gobind Khorana\u003c/td\u003e\u003ctd\u003eIII. Transformation\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eD. Meselson \u0026 Stahl\u003c/td\u003e\u003ctd\u003eIV. Lac operon\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003eChoose the correct answer from the options given below:"
+    },
+    {
+        "id":  24,
+        "answer":  "C",
+        "year":  "NEET 2024",
+        "answerText":  "A-III, B-IV, C-I, D-II",
+        "options":  [
+                        "A-I, B-II, C-III, D-IV",
+                        "A-II, B-III, C-IV, D-I",
+                        "A-III, B-IV, C-I, D-II",
+                        "A-IV, B-I, C-II, D-III"
+                    ],
+        "question":  "Match List I with List II :\u003cbr\u003e\u003cdiv class=\u0027match-table-wrap\u0027\u003e\u003ctable class=\u0027match-table\u0027\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eList - I\u003c/th\u003e\u003cth\u003eList - II\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eA. Down\u0027s syndrome\u003c/td\u003e\u003ctd\u003eI. 11th chromosome\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eB. Î±-thalassemia\u003c/td\u003e\u003ctd\u003eII. \u0027X\u0027 chromosome\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eC. Î²-thalassemia\u003c/td\u003e\u003ctd\u003eIII. 21st chromosome\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eD. Klinefelter\u0027s syndrome\u003c/td\u003e\u003ctd\u003eIV. 16th chromosome\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003eChoose the correct answer from the options given below :"
+    },
+    {
+        "id":  25,
+        "answer":  "A",
+        "year":  "NEET 2024",
+        "answerText":  "5\u0027 AUGUACCGUUUAUAGGUAAGU 3\u0027",
+        "options":  [
+                        "5\u0027 AUGUACCGUUUAUAGGUAAGU 3\u0027",
+                        "5\u0027 AUGUAAAGUUUAUAGGUAAGU 3\u0027",
+                        "5\u0027 AUGUACCGUUUAUAGGGAAGU 3\u0027",
+                        "5\u0027 ATGTACCGTTTATAGGTAAGT 3\u0027"
+                    ],
+        "question":  "Which one is the correct product of DNA dependent RNA polymerase to the given template?\u003cbr\u003e\u003ccode style=\u0027color:#38bdf8;font-size:1.05rem;\u0027\u003e3\u0027 TACATGGCAAATATCCATTCA 5\u0027\u003c/code\u003e"
+    },
+    {
+        "id":  26,
+        "answer":  "D",
+        "year":  "NEET 2024",
+        "answerText":  "A-IV, B-III, C-I, D-II",
+        "options":  [
+                        "A-II, B-IV, C-I, D-III",
+                        "A-III, B-II, C-IV, D-I",
+                        "A-III, B-IV, C-I, D-II",
+                        "A-IV, B-III, C-I, D-II"
+                    ],
+        "question":  "Match List I with List II:\u003cbr\u003e\u003cdiv class=\u0027match-table-wrap\u0027\u003e\u003ctable class=\u0027match-table\u0027\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eList - I\u003c/th\u003e\u003cth\u003eList - II\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003eA. RNA polymerase III\u003c/td\u003e\u003ctd\u003eI. snRNPs\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eB. Termination of transcription\u003c/td\u003e\u003ctd\u003eII. Promotor\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eC. Splicing of Exons\u003c/td\u003e\u003ctd\u003eIII. Rho factor\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003eD. TATA box\u003c/td\u003e\u003ctd\u003eIV. SnRNAs, tRNA\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003eChoose the correct answer from the options given below :"
+    },
+    {
+        "id":  27,
+        "answer":  "B",
+        "year":  "NEET 2023 Manipur",
+        "answerText":  "Chromosome 1",
+        "options":  [
+                        "Chromosome 6",
+                        "Chromosome 1",
+                        "Chromosome 22",
+                        "Chromosome 14"
+                    ],
+        "question":  "The last chromosome sequenced in Human Genome Project was:"
+    },
+    {
+        "id":  28,
+        "answer":  "C",
+        "year":  "NEET 2023 Manipur",
+        "answerText":  "Repressor protein",
+        "options":  [
+                        "Promotor",
+                        "Regulator protein",
+                        "Repressor protein",
+                        "Inducer"
+                    ],
+        "question":  "Name the component that binds to the operator region of an operon and prevents RNA polymerase from transcribing the operon."
+    },
+    {
+        "id":  29,
+        "answer":  "C",
+        "year":  "NEET 2023 Manipur",
+        "answerText":  "Both Statement I and Statement II are true",
+        "options":  [
+                        "Statement I is true but Statement II is false",
+                        "Statement I is false but Statement II is true",
+                        "Both Statement I and Statement II are true",
+                        "Both Statement I and Statement II are false"
+                    ],
+        "question":  "Given below are two statements :\u003cbr\u003e\u003cbr\u003e\u003cstrong\u003eStatement I :\u003c/strong\u003e The process of copying genetic information from one strand of the DNA into RNA is termed as transcription.\u003cbr\u003e\u003cstrong\u003eStatement II :\u003c/strong\u003e A transcription unit in DNA is defined primarily by the three regions in the DNA i.e., a promotor, the structural gene and a terminator.\u003cbr\u003e\u003cbr\u003eIn the light of the above statements, choose the correct answer from the options given below :"
+    },
+    {
+        "id":  30,
+        "answer":  "B",
+        "year":  "NEET 2023 Manipur",
+        "answerText":  "A. D Hershey and M.J. Chase",
+        "options":  [
+                        "James D. Watson and F.H. C. Crick",
+                        "A. D Hershey and M.J. Chase",
+                        "F. Griffith",
+                        "O.T. Avery, C.M. MacLeod and M. McCarty"
+                    ],
+        "question":  "Which scientist conducted an experiment with \u003csup\u003e32\u003c/sup\u003eP and \u003csup\u003e35\u003c/sup\u003eS labelled phages for demonstrating that DNA is the genetic material?"
+    },
+    {
+        "id":  31,
+        "answer":  "C",
+        "year":  "NEET 2023 Manipur",
+        "answerText":  "Both Statement I and Statement II are true",
+        "options":  [
+                        "Statement I is correct but Statement II is false",
+                        "Statement I is incorrect but Statement II is true",
+                        "Both Statement I and Statement II are true",
+                        "Both Statement I and Statement II are false"
+                    ],
+        "question":  "Given below are two statements :\u003cbr\u003e\u003cbr\u003e\u003cstrong\u003eStatement I :\u003c/strong\u003e RNA being unstable, mutate at a faster rate.\u003cbr\u003e\u003cstrong\u003eStatement II :\u003c/strong\u003e RNA can directly code for synthesis of proteins hence can easily express the characters.\u003cbr\u003e\u003cbr\u003eIn the light of the above statements, choose the correct answer from the options given below :"
+    },
+    {
+        "id":  32,
+        "answer":  "D",
+        "year":  "NEET 2023 Manipur",
+        "answerText":  "(A) and (C) only",
+        "options":  [
+                        "(B), (C) and (D) only",
+                        "(B) and (D) only",
+                        "(A), (B) and (D) only",
+                        "(A) and (C) only"
+                    ],
+        "question":  "Select the correct statements about sickle cell anaemia.\u003cbr\u003e(A) There is a change in gene for beta globin.\u003cbr\u003e(B) In the beta globin, there is valine in the place of Lysine.\u003cbr\u003e(C) It is an example of point mutation.\u003cbr\u003e(D) In the normal gene U is replaced by A.\u003cbr\u003e\u003cbr\u003eChoose the correct answer from the options given below :"
+    },
+    {
+        "id":  33,
+        "answer":  "B",
+        "year":  "NEET 2023 Manipur",
+        "answerText":  "Lactose",
+        "options":  [
+                        "Sucrose",
+                        "Lactose",
+                        "Glucose",
+                        "Galactose"
+                    ],
+        "question":  "Which one of the following acts as an inducer for lac operon ?"
+    },
+    {
+        "id":  34,
+        "answer":  "B",
+        "year":  "NEET 2023 Manipur",
+        "answerText":  "(A) and (B) only",
+        "options":  [
+                        "(D) and (E) only",
+                        "(A) and (B) only",
+                        "(A) and (C) only",
+                        "(B) and (D) only"
+                    ],
+        "question":  "With reference to Hershey and Chase experiments. Select the correct statements.\u003cbr\u003e(A) Viruses grown in the presence of radioactive phosphorus contained radioactive DNA.\u003cbr\u003e(B) Viruses grown on radioactive sulphur contained radioactive proteins.\u003cbr\u003e(C) Viruses grown on radioactive phosphorus contained radioactive protein.\u003cbr\u003e(D) Viruses grown on radioactive sulphur contained radioactive DNA.\u003cbr\u003e(E) Viruses grown on radioactive protein contained radioactive DNA.\u003cbr\u003e\u003cbr\u003eChoose the most appropriate answer from the options given below :"
+    },
+    {
+        "id":  35,
+        "answer":  "D",
+        "year":  "NEET 2023 Manipur",
+        "answerText":  "(C) and (D) only",
+        "options":  [
+                        "(A) and (D) only",
+                        "(B) and (C) only",
+                        "(A) and (B) only",
+                        "(C) and (D) only"
+                    ],
+        "question":  "The salient features of genetic code are :\u003cbr\u003e(A) The code is palindromic\u003cbr\u003e(B) UGA act as initiator codon\u003cbr\u003e(C) The code is unambiguous and specific\u003cbr\u003e(D) The code is nearly universal\u003cbr\u003e\u003cbr\u003eChoose the most appropriate answer from the options given below :"
+    },
+    {
+        "id":  36,
+        "answer":  "A",
+        "year":  "NEET 2023",
+        "answerText":  "Alfred Hershey and Martha Chase",
+        "options":  [
+                        "Alfred Hershey and Martha Chase",
+                        "Avery, Macleoid and McCarthy",
+                        "Wilkins and Franklin",
+                        "Frederick Griffith"
+                    ],
+        "question":  "Unequivocal proof that DNA is the genetic material was first proposed by"
+    },
+    {
+        "id":  37,
+        "answer":  "A",
+        "year":  "NEET 2023",
+        "answerText":  "Transcription of tRNA, 5S rRNA and snRNA",
+        "options":  [
+                        "Transcription of tRNA, 5S rRNA and snRNA",
+                        "Transcription of precursor of mRNA",
+                        "Transcription of only snRNAs",
+                        "Transcription of rRNAs (28S, 18S and 5.8S)"
+                    ],
+        "question":  "What is the role of RNA polymerase III in the process of transcription in Eukaryotes?"
+    },
+    {
+        "id":  38,
+        "answer":  "D",
+        "year":  "NEET 2023",
+        "answerText":  "All genes that are expressed as RNA.",
+        "options":  [
+                        "All genes that are expressed as proteins.",
+                        "All genes whether expressed or unexpressed.",
+                        "Certain important expressed genes.",
+                        "All genes that are expressed as RNA."
+                    ],
+        "question":  "Expressed Sequence Tags (ESTs) refers to"
+    },
+    {
+        "id":  39,
+        "answer":  "A",
+        "year":  "NEET 2023",
+        "answerText":  "A-II, B-III, C-IV, D-I",
+        "options":  [
+                        "A-II, B-III, C-IV, D-I",
+                        "A-III, B-IV, C-I, D-II",
+                        "A-III, B-I, C-IV, D-II",
+                        "A-II, B-I, C-IV, D-III"
+                    ],
+        "question":  "Match List I with List II.\u003cbr\u003e\u003cdiv class=\u0027match-table-wrap\u0027\u003e\u003ctable class=\u0027match-table\u0027\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eList I\u003c/th\u003e\u003cth\u003eList II\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003e(A) Gene \u0027a\u0027\u003c/td\u003e\u003ctd\u003e(I) Î²-galactosidase\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003e(B) Gene \u0027y\u0027\u003c/td\u003e\u003ctd\u003e(II) Transacetylase\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003e(C) Gene \u0027i\u0027\u003c/td\u003e\u003ctd\u003e(III) Permease\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003e(D) Gene \u0027z\u0027\u003c/td\u003e\u003ctd\u003e(IV) Repressor protein\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003eChoose the correct answer from the options given below :"
+    },
+    {
+        "id":  40,
+        "answer":  "D",
+        "year":  "NEET 2023",
+        "answerText":  "Both Statement I and Statement II are true.",
+        "options":  [
+                        "Both Statement I and Statement II are false.",
+                        "Statement I is true but Statement II is false.",
+                        "Statement I is false but Statement II is true.",
+                        "Both Statement I and Statement II are true."
+                    ],
+        "question":  "Given below are two statements:\u003cbr\u003e\u003cbr\u003e\u003cstrong\u003eStatement I:\u003c/strong\u003e RNA mutates at a faster rate.\u003cbr\u003e\u003cstrong\u003eStatement II:\u003c/strong\u003e Viruses having RNA genome and shorter life span mutate and evolve faster.\u003cbr\u003e\u003cbr\u003eIn the light of the above statements, choose the correct answer from the options given below:"
+    },
+    {
+        "id":  41,
+        "answer":  "C",
+        "year":  "NEET 2023",
+        "answerText":  "Statement I is incorrect but Statement II is true.",
+        "options":  [
+                        "Both Statement I and Statement II are false.",
+                        "Statement I is correct but Statement II is false.",
+                        "Statement I is incorrect but Statement II is true.",
+                        "Both Statement I and Statement II are true."
+                    ],
+        "question":  "Given below are two statements:\u003cbr\u003e\u003cbr\u003e\u003cstrong\u003eStatement I:\u003c/strong\u003e In prokaryotes, the positively charged DNA is held with some negatively charged proteins in a region called nucleoid.\u003cbr\u003e\u003cstrong\u003eStatement II:\u003c/strong\u003e In eukaryotes, the negatively charged DNA is wrapped around the positively charged histone octamer to form nucleosome.\u003cbr\u003e\u003cbr\u003eIn the light of the above statements, choose the correct answer from the options given below:"
+    },
+    {
+        "id":  42,
+        "answer":  "B",
+        "year":  "NEET 2023",
+        "answerText":  "5\u0027 ATCGATCGATCGATCGATCGATCGATCG 3\u0027",
+        "options":  [
+                        "3\u0027 UAGCUAGCUAGCUAGCUAGCUAGCUAGC 5\u0027",
+                        "5\u0027 ATCGATCGATCGATCGATCGATCGATCG 3\u0027",
+                        "3\u0027 ATCGATCGATCGATCGATCGATCGATCG 5\u0027",
+                        "5\u0027 UAGCUAGCUAGCUAGCUAGCUAGCUAGC 3\u0027"
+                    ],
+        "question":  "Which one of the following is the sequence on corresponding coding strand, if the sequence on mRNA formed is as follows :\u003cbr\u003e\u003ccode style=\u0027color:#38bdf8;font-size:1.05rem;\u0027\u003e5\u0027 AUCGAUCGAUCGAUCGAUCGAUCGAUCG 3\u0027\u003c/code\u003e"
+    },
+    {
+        "id":  43,
+        "answer":  "B",
+        "year":  "NEET 2022 Phase 2",
+        "answerText":  "Î²-galactosidase",
+        "options":  [
+                        "Transacetylase",
+                        "Î²-galactosidase",
+                        "Permease",
+                        "Repressor"
+                    ],
+        "question":  "In lac operon, z gene codes for"
+    },
+    {
+        "id":  44,
+        "answer":  "B",
+        "year":  "NEET 2022 Phase 2",
+        "answerText":  "Both Statement I and Statement II are correct",
+        "options":  [
+                        "Statement I is incorrect but Statement II is correct",
+                        "Both Statement I and Statement II are correct",
+                        "Both Statement I and Statement II are incorrect",
+                        "Statement I is correct but Statement II is incorrect"
+                    ],
+        "question":  "Given below are two statements\u003cbr\u003e\u003cbr\u003e\u003cstrong\u003eStatement I :\u003c/strong\u003e DNA polymerases catalyse polymerisation only in one direction, that is 5\u0027 â†’ 3\u0027.\u003cbr\u003e\u003cstrong\u003eStatement II :\u003c/strong\u003e During replication of DNA, on one strand the replication is continuous while on other strand it is discontinuous.\u003cbr\u003e\u003cbr\u003eIn the light of the above statements, choose the correct answer from the options given below:"
+    },
+    {
+        "id":  45,
+        "answer":  "C",
+        "year":  "NEET 2022 Phase 2",
+        "answerText":  "(a) - (iv), (b) - (iii), (c) - (ii), (d) - (i)",
+        "options":  [
+                        "(a) - (iii), (b) - (i), (c) - (iv), (d) - (ii)",
+                        "(a) - (iii), (b) - (ii), (c) - (i), (d) - (iv)",
+                        "(a) - (iv), (b) - (iii), (c) - (ii), (d) - (i)",
+                        "(a) - (iv), (b) - (i), (c) - (iii), (d) - (ii)"
+                    ],
+        "question":  "Match List - I with List - II.\u003cbr\u003e\u003cdiv class=\u0027match-table-wrap\u0027\u003e\u003ctable class=\u0027match-table\u0027\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eList - I\u003c/th\u003e\u003cth\u003eList - II\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003e(a) In lac operon i gene codes for\u003c/td\u003e\u003ctd\u003e(i) transacetylase\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003e(b) In lac operon z gene codes for\u003c/td\u003e\u003ctd\u003e(ii) permease\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003e(c) In lac operon y gene codes for\u003c/td\u003e\u003ctd\u003e(iii) Î²-galactosidase\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003e(d) In lac operon a gene codes for\u003c/td\u003e\u003ctd\u003e(iv) Repressor\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003eChoose the correct answer from the options given below"
+    },
+    {
+        "id":  46,
+        "answer":  "D",
+        "year":  "NEET 2022 Phase 2",
+        "answerText":  "(a)-(ii), (b)-(i), (c)-(iv), (d)-(iii)",
+        "options":  [
+                        "(a)-(i), (b)-(ii), (c)-(iv), (d)-(iii)",
+                        "(a)-(i), (b)-(ii), (c)-(iii), (d)-(iv)",
+                        "(a)-(ii), (b)-(iv), (c)-(i), (d)-(iii)",
+                        "(a)-(ii), (b)-(i), (c)-(iv), (d)-(iii)"
+                    ],
+        "question":  "Match List-I with List-II:\u003cbr\u003e\u003cdiv class=\u0027match-table-wrap\u0027\u003e\u003ctable class=\u0027match-table\u0027\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eList - I\u003c/th\u003e\u003cth\u003eList - II\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u003ctr\u003e\u003ctd\u003e(a) Bacteriophage Ï• Ã— 174\u003c/td\u003e\u003ctd\u003e(i) 48502 base pairs\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003e(b) Bacteriophage lambda\u003c/td\u003e\u003ctd\u003e(ii) 5386 nucleotides\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003e(c) Escherichia coli\u003c/td\u003e\u003ctd\u003e(iii) 3.3 Ã— 10\u003csup\u003e9\u003c/sup\u003e base pairs\u003c/td\u003e\u003c/tr\u003e\u003ctr\u003e\u003ctd\u003e(d) Haploid content of human DNA\u003c/td\u003e\u003ctd\u003e(iv) 4.6 Ã— 10\u003csup\u003e6\u003c/sup\u003e base pairs\u003c/td\u003e\u003c/tr\u003e\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003eChoose the correct answer from the options given below:"
+    },
+    {
+        "id":  47,
+        "answer":  "B",
+        "year":  "NEET 2022 Phase 2",
+        "answerText":  "5\u0027 AUG 3\u0027",
+        "options":  [
+                        "5\u0027 GUA 3\u0027",
+                        "5\u0027 AUG 3\u0027",
+                        "5\u0027 ATG 3\u0027",
+                        "5\u0027 GTA 3\u0027"
+                    ],
+        "question":  "Against the codon 5\u0027 UAC 3\u0027, what would be the sequence of anticodon on tRNA?"
+    },
+    {
+        "id":  48,
+        "answer":  "C",
+        "year":  "NEET 2022 Phase 2",
+        "answerText":  "T : 30%, G : 20%",
+        "options":  [
+                        "T : 20%, G : 20%",
+                        "T : 20%, G : 30%",
+                        "T : 30%, G : 20%",
+                        "T : 30%, G : 30%"
+                    ],
+        "question":  "If A and C make 30% and 20% of DNA, respectively, what will be the percentage composition of T and G?"
+    },
+    {
+        "id":  49,
+        "answer":  "A",
+        "year":  "NEET 2022 Phase 1",
+        "answerText":  "The small subunit of ribosome encounters mRNA",
+        "options":  [
+                        "The small subunit of ribosome encounters mRNA",
+                        "The larger subunit of ribosome encounters mRNA",
+                        "Both the subunits join together to bind with mRNA",
+                        "The tRNA is activated and the larger subunit of ribosome encounters mRNA"
+                    ],
+        "question":  "The process of translation of mRNA to proteins begins as soon as:"
+    },
+    {
+        "id":  50,
+        "answer":  "C",
+        "year":  "NEET 2022 Phase 1",
+        "answerText":  "Both genetic mapping and DNA finger printing",
+        "options":  [
+                        "Genetic mapping",
+                        "DNA finger printing",
+                        "Both genetic mapping and DNA finger printing",
+                        "Translation"
+                    ],
+        "question":  "DNA polymorphism forms the basis of:"
+    }
+];
+
+    /* -------------------------------------------------------------------------
+       State Management
+       ------------------------------------------------------------------------- */
+    let currentQuestion = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+    let timerInterval = null;
+    let secondsElapsed = 0;
+
+    /* DOM Element References */
+    const screenLanding = document.getElementById("screenLanding");
+    const screenQuiz = document.getElementById("screenQuiz");
+    const screenResults = document.getElementById("screenResults");
+
+    const btnStartQuiz = document.getElementById("btnStartQuiz");
+    const currentQDisplay = document.getElementById("currentQDisplay");
+    const progressBar = document.getElementById("progressBar");
+    const timerText = document.getElementById("timerText");
+    const answeredCountText = document.getElementById("answeredCountText");
+
+    const qSourceBadge = document.getElementById("qSourceBadge");
+    const qCounterPill = document.getElementById("qCounterPill");
+    const qCardContent = document.getElementById("qCardContent");
+    const optionsContainer = document.getElementById("optionsContainer");
+
+    const btnPrev = document.getElementById("btnPrev");
+    const btnNext = document.getElementById("btnNext");
+    const btnClearAns = document.getElementById("btnClearAns");
+
+    const btnOpenDrawer = document.getElementById("btnOpenDrawer");
+    const btnCloseDrawer = document.getElementById("btnCloseDrawer");
+    const drawerOverlay = document.getElementById("drawerOverlay");
+    const gridPills = document.getElementById("gridPills");
+
+    const confirmOverlay = document.getElementById("confirmOverlay");
+    const confirmTitle = document.getElementById("confirmTitle");
+    const confirmDesc = document.getElementById("confirmDesc");
+    const btnCancelSubmit = document.getElementById("btnCancelSubmit");
+    const btnConfirmSubmit = document.getElementById("btnConfirmSubmit");
+
+    const scoreDisplay = document.getElementById("scoreDisplay");
+    const scoreRing = document.getElementById("scoreRing");
+    const perfBadge = document.getElementById("perfBadge");
+    const perfTitle = document.getElementById("perfTitle");
+    const perfSubtitle = document.getElementById("perfSubtitle");
+    const statAccuracy = document.getElementById("statAccuracy");
+    const statCorrect = document.getElementById("statCorrect");
+    const statIncorrect = document.getElementById("statIncorrect");
+    const statTime = document.getElementById("statTime");
+    const btnRetake = document.getElementById("btnRetake");
+    const btnHome = document.getElementById("btnHome");
+    const reviewCardsList = document.getElementById("reviewCardsList");
+
+    /* -------------------------------------------------------------------------
+       Screen Switching
+       ------------------------------------------------------------------------- */
+    function showScreen(screen) {
+      [screenLanding, screenQuiz, screenResults].forEach(s => s.classList.remove("active"));
+      screen.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* -------------------------------------------------------------------------
+       Timer Management
+       ------------------------------------------------------------------------- */
+    function startTimer() {
+      stopTimer();
+      secondsElapsed = 0;
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        secondsElapsed++;
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function formatTime(totalSeconds) {
+      const mins = Math.floor(totalSeconds / 60);
+      const secs = totalSeconds % 60;
+      return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+    }
+
+    function updateTimerDisplay() {
+      timerText.textContent = formatTime(secondsElapsed);
+    }
+
+    /* -------------------------------------------------------------------------
+       Quiz Core Logic
+       ------------------------------------------------------------------------- */
+    function startQuiz() {
+      currentQuestion = 0;
+      userAnswers = new Array(questions.length).fill(null);
+      showScreen(screenQuiz);
+      startTimer();
+      loadQuestion(0);
+      updateMeta();
+    }
+
+    function loadQuestion(index) {
+      currentQuestion = index;
+      const q = questions[index];
+
+      // Update Header Text & Progress
+      currentQDisplay.textContent = `Question ${index + 1}`;
+      const progressPercent = ((index + 1) / questions.length) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+
+      // Update Question Card
+      qSourceBadge.textContent = q.year || "NEET Biology";
+      qCounterPill.textContent = `Question ${index + 1} of ${questions.length}`;
+      qCardContent.innerHTML = q.question;
+
+      // Render Options
+      optionsContainer.innerHTML = "";
+      const badgeLetters = ["A", "B", "C", "D"];
+
+      q.options.forEach((optText, optIdx) => {
+        const letter = badgeLetters[optIdx];
+        const optionCard = document.createElement("div");
+        optionCard.className = "option-card";
+        optionCard.setAttribute("role", "radio");
+        optionCard.setAttribute("tabindex", "0");
+        optionCard.setAttribute("data-letter", letter);
+
+        const isSelected = (userAnswers[index] === letter);
+        if (isSelected) {
+          optionCard.classList.add("selected");
+          optionCard.setAttribute("aria-checked", "true");
+        } else {
+          optionCard.setAttribute("aria-checked", "false");
+        }
+
+        optionCard.innerHTML = `
+          <div class="option-badge">${letter}</div>
+          <div class="option-label">
+            <span>${optText}</span>
+          </div>
+          <div class="option-check-icon">
+            <svg viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+        `;
+
+        // Click Selection with coordinates for celebration burst
+        optionCard.addEventListener("click", (e) => {
+          const x = e.clientX || (optionCard.getBoundingClientRect().left + optionCard.offsetWidth / 2);
+          const y = e.clientY || (optionCard.getBoundingClientRect().top + optionCard.offsetHeight / 2);
+          selectAnswer(letter, { x, y });
+        });
+
+        // Keyboard Selection (Enter / Space)
+        optionCard.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            const rect = optionCard.getBoundingClientRect();
+            selectAnswer(letter, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+          }
+        });
+
+        optionsContainer.appendChild(optionCard);
+      });
+
+      // Update Navigation Buttons
+      btnPrev.disabled = (index === 0);
+      if (index === questions.length - 1) {
+        btnNext.innerHTML = `
+          Finish Quiz
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        `;
+        btnNext.classList.add("btn-finish");
+      } else {
+        btnNext.innerHTML = `
+          Next
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        `;
+        btnNext.classList.remove("btn-finish");
+      }
+
+      updateMeta();
+    }
+
+    function selectAnswer(letter, originCoords) {
+      userAnswers[currentQuestion] = letter;
+      
+      // Update UI cards
+      const cards = optionsContainer.querySelectorAll(".option-card");
+      cards.forEach(card => {
+        if (card.getAttribute("data-letter") === letter) {
+          card.classList.add("selected");
+          card.setAttribute("aria-checked", "true");
+          // Trigger cracker burst animation on card
+          card.classList.remove("cracker-burst");
+          void card.offsetWidth; // trigger reflow
+          card.classList.add("cracker-burst");
+
+          if (!originCoords) {
+            const rect = card.getBoundingClientRect();
+            originCoords = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+          }
+        } else {
+          card.classList.remove("selected");
+          card.setAttribute("aria-checked", "false");
+        }
+      });
+
+      // Launch full cracker particle burst
+      if (originCoords && typeof originCoords.x === "number") {
+        triggerCrackers(originCoords.x, originCoords.y);
+      } else {
+        triggerCrackers(window.innerWidth / 2, window.innerHeight / 2);
+      }
+
+      updateMeta();
+    }
+
+    function clearCurrentAnswer() {
+      userAnswers[currentQuestion] = null;
+      const cards = optionsContainer.querySelectorAll(".option-card");
+      cards.forEach(card => {
+        card.classList.remove("selected");
+        card.setAttribute("aria-checked", "false");
+      });
+      updateMeta();
+    }
+
+    function updateMeta() {
+      const answeredCount = userAnswers.filter(a => a !== null).length;
+      answeredCountText.textContent = `${answeredCount}/${questions.length} Answered`;
+    }
+
+    function goToNext() {
+      if (currentQuestion < questions.length - 1) {
+        loadQuestion(currentQuestion + 1);
+      } else {
+        requestSubmit();
+      }
+    }
+
+    function goToPrev() {
+      if (currentQuestion > 0) {
+        loadQuestion(currentQuestion - 1);
+      }
+    }
+
+    /* -------------------------------------------------------------------------
+       Question Navigator Grid Drawer
+       ------------------------------------------------------------------------- */
+    function openDrawer() {
+      gridPills.innerHTML = "";
+      questions.forEach((q, idx) => {
+        const pill = document.createElement("button");
+        pill.className = "nav-pill";
+        pill.textContent = idx + 1;
+        pill.title = `Question ${idx + 1}`;
+
+        if (userAnswers[idx] !== null) {
+          pill.classList.add("answered");
+        }
+        if (idx === currentQuestion) {
+          pill.classList.add("current");
+        }
+
+        pill.addEventListener("click", () => {
+          loadQuestion(idx);
+          closeDrawer();
+        });
+
+        gridPills.appendChild(pill);
+      });
+
+      drawerOverlay.classList.add("active");
+    }
+
+    function closeDrawer() {
+      drawerOverlay.classList.remove("active");
+    }
+
+    /* -------------------------------------------------------------------------
+       Submission Confirmation
+       ------------------------------------------------------------------------- */
+    function requestSubmit() {
+      const answeredCount = userAnswers.filter(a => a !== null).length;
+      const unansweredCount = questions.length - answeredCount;
+
+      if (unansweredCount > 0) {
+        confirmTitle.textContent = "Unanswered Questions";
+        confirmDesc.textContent = `You have answered ${answeredCount} of ${questions.length} questions. You still have ${unansweredCount} unanswered. Would you like to review them or submit now?`;
+        btnCancelSubmit.textContent = "Review Remaining";
+      } else {
+        confirmTitle.textContent = "Finish & Submit Quiz?";
+        confirmDesc.textContent = `You have completed all ${questions.length} questions! Ready to see your score and full performance analysis?`;
+        btnCancelSubmit.textContent = "Double Check Answers";
+      }
+
+      confirmOverlay.classList.add("active");
+    }
+
+    function closeConfirm() {
+      confirmOverlay.classList.remove("active");
+    }
+
+    /* -------------------------------------------------------------------------
+       Results & Scoring Engine
+       ------------------------------------------------------------------------- */
+    function submitQuiz() {
+      closeConfirm();
+      stopTimer();
+
+      let correctCount = 0;
+      let incorrectCount = 0;
+      let unansweredCount = 0;
+
+      questions.forEach((q, idx) => {
+        const userChoice = userAnswers[idx];
+        if (userChoice === null) {
+          unansweredCount++;
+        } else if (userChoice === q.answer) {
+          correctCount++;
+        } else {
+          incorrectCount++;
+        }
+      });
+
+      const totalQuestions = questions.length;
+      const accuracyPercent = Math.round((correctCount / totalQuestions) * 100);
+
+      // Populate Stats
+      scoreDisplay.textContent = correctCount;
+      statAccuracy.textContent = `${accuracyPercent}%`;
+      statCorrect.textContent = correctCount;
+      statIncorrect.textContent = incorrectCount;
+      statTime.textContent = formatTime(secondsElapsed);
+
+      // Animated Circular Ring (circumference = 2 * PI * 68 ≈ 427.26)
+      const circumference = 2 * Math.PI * 68;
+      scoreRing.style.strokeDasharray = `${circumference}`;
+      const offset = circumference - (accuracyPercent / 100) * circumference;
+      setTimeout(() => {
+        scoreRing.style.strokeDashoffset = `${offset}`;
+      }, 150);
+
+      // Performance Feedback Tone
+      if (accuracyPercent >= 90) {
+        perfBadge.textContent = "Mastery Level";
+        perfBadge.style.background = "rgba(16, 185, 129, 0.15)";
+        perfBadge.style.color = "#34d399";
+        perfTitle.textContent = "Outstanding Performance! 🏆";
+        perfSubtitle.textContent = "Exceptional conceptual clarity across Molecular Basis of Inheritance NEET questions!";
+      } else if (accuracyPercent >= 75) {
+        perfBadge.textContent = "Distinction";
+        perfBadge.style.background = "rgba(99, 102, 241, 0.15)";
+        perfBadge.style.color = "#a5b4fc";
+        perfTitle.textContent = "Great Job! Well Done! 🌟";
+        perfSubtitle.textContent = "You demonstrated strong mastery with only a few tricky questions to polish.";
+      } else if (accuracyPercent >= 50) {
+        perfBadge.textContent = "Good Effort";
+        perfBadge.style.background = "rgba(245, 158, 11, 0.15)";
+        perfBadge.style.color = "#fbbf24";
+        perfTitle.textContent = "Solid Foundation! 👍";
+        perfSubtitle.textContent = "Review the verified answer explanations below to strengthen your score.";
+      } else {
+        perfBadge.textContent = "Practice Needed";
+        perfBadge.style.background = "rgba(239, 68, 68, 0.15)";
+        perfBadge.style.color = "#f87171";
+        perfTitle.textContent = "Keep Learning & Practicing! 📚";
+        perfSubtitle.textContent = "Carefully review each question and answer below to master Molecular Basis of Inheritance concepts.";
+      }
+
+      // Update filter badge counts
+      const btnFilterAll = document.querySelector('.btn-filter[data-filter="all"]');
+      const btnFilterCor = document.querySelector('.btn-filter[data-filter="correct"]');
+      const btnFilterInc = document.querySelector('.btn-filter[data-filter="incorrect"]');
+      const btnFilterUna = document.querySelector('.btn-filter[data-filter="unanswered"]');
+      if (btnFilterAll) btnFilterAll.textContent = `All (${totalQuestions})`;
+      if (btnFilterCor) btnFilterCor.textContent = `Correct (${correctCount})`;
+      if (btnFilterInc) btnFilterInc.textContent = `Incorrect (${incorrectCount})`;
+      if (btnFilterUna) btnFilterUna.textContent = `Unanswered (${unansweredCount})`;
+
+      // Build Review Cards
+      buildReviewList("all");
+
+      showScreen(screenResults);
+    }
+
+    function buildReviewList(filterType = "all") {
+      reviewCardsList.innerHTML = "";
+      const badgeLetters = ["A", "B", "C", "D"];
+
+      questions.forEach((q, idx) => {
+        const userChoice = userAnswers[idx];
+        const isCorrect = (userChoice === q.answer);
+        const isUnanswered = (userChoice === null);
+
+        let statusClass = "incorrect";
+        let statusText = "Incorrect";
+        if (isUnanswered) {
+          statusClass = "unanswered";
+          statusText = "Skipped";
+        } else if (isCorrect) {
+          statusClass = "correct";
+          statusText = "Correct";
+        }
+
+        // Apply filter
+        if (filterType === "correct" && !isCorrect) return;
+        if (filterType === "incorrect" && (isCorrect || isUnanswered)) return;
+        if (filterType === "unanswered" && !isUnanswered) return;
+
+        // Resolve text of chosen and correct options
+        const correctOptIdx = badgeLetters.indexOf(q.answer);
+        const correctOptFull = (correctOptIdx !== -1) ? `(${q.answer}) ${q.options[correctOptIdx]}` : q.answer;
+
+        let userChoiceFull = "None (Skipped)";
+        if (userChoice !== null) {
+          const userOptIdx = badgeLetters.indexOf(userChoice);
+          userChoiceFull = (userOptIdx !== -1) ? `(${userChoice}) ${q.options[userOptIdx]}` : userChoice;
+        }
+
+        const card = document.createElement("div");
+        card.className = `review-card ${statusClass}`;
+        card.innerHTML = `
+          <div class="review-card-top">
+            <span class="review-q-num">Question ${idx + 1} · <span style="color: #a5b4fc; font-weight: 600;">${q.year}</span></span>
+            <span class="status-tag ${statusClass}">${statusText}</span>
+          </div>
+          <div class="review-q-text">${q.question}</div>
+          <div class="review-answers-box">
+            <div class="answer-line">
+              <span style="color: var(--text-dim); font-size: 0.85rem;">Your Choice:</span>
+              <span class="ans-tag your-ans" style="border: 1px solid ${isCorrect ? 'var(--success)' : isUnanswered ? 'var(--warning)' : 'var(--danger)'}">
+                ${userChoiceFull}
+              </span>
+            </div>
+            <div class="answer-line">
+              <span style="color: var(--text-dim); font-size: 0.85rem;">Verified Answer:</span>
+              <span class="ans-tag correct-ans">${correctOptFull}</span>
+            </div>
+          </div>
+        `;
+
+        reviewCardsList.appendChild(card);
+      });
+
+      if (reviewCardsList.children.length === 0) {
+        reviewCardsList.innerHTML = `
+          <div style="text-align: center; padding: 30px; color: var(--text-muted); font-size: 0.95rem;">
+            No questions matched the "${filterType}" filter.
+          </div>
+        `;
+      }
+    }
+
+    /* -------------------------------------------------------------------------
+       Event Listeners & Keyboard Accessibility
+       ------------------------------------------------------------------------- */
+    // Landing & Navigation
+    btnStartQuiz.addEventListener("click", startQuiz);
+    btnNext.addEventListener("click", goToNext);
+    btnPrev.addEventListener("click", goToPrev);
+    btnClearAns.addEventListener("click", clearCurrentAnswer);
+
+    // Question Drawer
+    btnOpenDrawer.addEventListener("click", openDrawer);
+    btnCloseDrawer.addEventListener("click", closeDrawer);
+    drawerOverlay.addEventListener("click", (e) => {
+      if (e.target === drawerOverlay) closeDrawer();
+    });
+
+    // Confirmation Modal
+    btnCancelSubmit.addEventListener("click", () => {
+      closeConfirm();
+      const firstUnanswered = userAnswers.findIndex(a => a === null);
+      if (firstUnanswered !== -1) {
+        loadQuestion(firstUnanswered);
+      }
+    });
+    btnConfirmSubmit.addEventListener("click", submitQuiz);
+    confirmOverlay.addEventListener("click", (e) => {
+      if (e.target === confirmOverlay) closeConfirm();
+    });
+
+    // Results Actions
+    btnRetake.addEventListener("click", startQuiz);
+    btnHome.addEventListener("click", () => {
+      stopTimer();
+      showScreen(screenLanding);
+    });
+
+    // Review Filters
+    document.querySelectorAll(".btn-filter").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".btn-filter").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        buildReviewList(btn.getAttribute("data-filter"));
+      });
+    });
+
+    // Keyboard Shortcuts
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        if (drawerOverlay.classList.contains("active")) {
+          closeDrawer();
+          return;
+        }
+        if (confirmOverlay.classList.contains("active")) {
+          closeConfirm();
+          return;
+        }
+      }
+
+      if (drawerOverlay.classList.contains("active") || confirmOverlay.classList.contains("active")) {
+        return;
+      }
+
+      // Quiz Screen Shortcuts
+      if (screenQuiz.classList.contains("active")) {
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          goToNext();
+        } else if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          goToPrev();
+        }
+
+        // Direct option selection using 1, 2, 3, 4 or A, B, C, D
+        const key = e.key.toUpperCase();
+        const map = { "1": "A", "2": "B", "3": "C", "4": "D", "A": "A", "B": "B", "C": "C", "D": "D" };
+        const selectedLetter = map[key];
+
+        if (selectedLetter) {
+          const card = optionsContainer.querySelector(`[data-letter="${selectedLetter}"]`);
+          let coords = null;
+          if (card) {
+            const rect = card.getBoundingClientRect();
+            coords = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+          }
+          selectAnswer(selectedLetter, coords);
+        }
+      } else if (screenLanding.classList.contains("active")) {
+        if (e.key === "Enter") {
+          startQuiz();
+        }
+      }
+    });
+
+    /* -------------------------------------------------------------------------
+       Crackers Animation & Audio Engine
+       ------------------------------------------------------------------------- */
+    const crackerCanvas = document.getElementById("crackerCanvas");
+    const crackerCtx = crackerCanvas.getContext("2d");
+    let crackerParticles = [];
+    let crackerShockwaves = [];
+    let crackerAnimId = null;
+
+    function resizeCrackerCanvas() {
+      crackerCanvas.width = window.innerWidth;
+      crackerCanvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCrackerCanvas);
+    resizeCrackerCanvas();
+
+    const CRACKER_PALETTE = [
+      "#ffd700", "#ff3d00", "#ff1744", "#00e676", 
+      "#00e5ff", "#d500f9", "#ff9100", "#ffffff",
+      "#6366f1", "#ec4899", "#f59e0b", "#10b981"
+    ];
+
+    let audioCtx = null;
+    function playCrackerPop() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+
+        const now = audioCtx.currentTime;
+
+        // 1. Crackle burst noise
+        const bufferSize = Math.floor(audioCtx.sampleRate * 0.05);
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3));
+        }
+
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = "bandpass";
+        filter.frequency.setValueAtTime(1500, now);
+        filter.Q.setValueAtTime(4, now);
+
+        const noiseGain = audioCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.25, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+
+        noise.connect(filter);
+        filter.connect(noiseGain);
+        noiseGain.connect(audioCtx.destination);
+        noise.start(now);
+
+        // 2. Sparkle ping
+        const osc = audioCtx.createOscillator();
+        const oscGain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(950, now);
+        osc.frequency.exponentialRampToValueAtTime(1450, now + 0.1);
+
+        oscGain.gain.setValueAtTime(0.12, now);
+        oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+
+        osc.connect(oscGain);
+        oscGain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.1);
+      } catch (e) {
+        // Silently ignore if blocked
+      }
+    }
+
+    class CrackerParticle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 8 + 3.5;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed - (Math.random() * 2.5 + 0.5);
+        this.gravity = 0.22;
+        this.friction = 0.94;
+        this.alpha = 1;
+        this.decay = Math.random() * 0.024 + 0.016;
+        this.size = Math.random() * 4 + 2;
+        this.type = Math.random() > 0.45 ? "circle" : (Math.random() > 0.5 ? "star" : "spark");
+        this.spin = Math.random() * 0.3 - 0.15;
+        this.rotation = Math.random() * Math.PI * 2;
+      }
+
+      update() {
+        this.vx *= this.friction;
+        this.vy *= this.friction;
+        this.vy += this.gravity;
+        this.x += this.vx;
+        this.y += this.vy;
+        this.rotation += this.spin;
+        this.alpha -= this.decay;
+      }
+
+      draw(c) {
+        c.save();
+        c.globalAlpha = Math.max(0, this.alpha);
+        c.fillStyle = this.color;
+        c.shadowColor = this.color;
+        c.shadowBlur = 8;
+        c.translate(this.x, this.y);
+        c.rotate(this.rotation);
+
+        if (this.type === "circle") {
+          c.beginPath();
+          c.arc(0, 0, this.size, 0, Math.PI * 2);
+          c.fill();
+        } else if (this.type === "star") {
+          c.beginPath();
+          const r = this.size * 1.6;
+          c.moveTo(0, -r);
+          c.quadraticCurveTo(0, 0, r, 0);
+          c.quadraticCurveTo(0, 0, 0, r);
+          c.quadraticCurveTo(0, 0, -r, 0);
+          c.quadraticCurveTo(0, 0, 0, -r);
+          c.fill();
+        } else {
+          c.beginPath();
+          c.moveTo(0, -this.size * 2);
+          c.lineTo(this.size * 0.6, 0);
+          c.lineTo(0, this.size * 2);
+          c.lineTo(-this.size * 0.6, 0);
+          c.closePath();
+          c.fill();
+        }
+
+        c.restore();
+      }
+    }
+
+    class CrackerShockwave {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.radius = 4;
+        this.maxRadius = Math.random() * 30 + 45;
+        this.alpha = 0.85;
+      }
+      update() {
+        this.radius += (this.maxRadius - this.radius) * 0.22;
+        this.alpha *= 0.87;
+      }
+      draw(c) {
+        if (this.alpha <= 0.02) return;
+        c.save();
+        c.globalAlpha = this.alpha;
+        c.strokeStyle = this.color;
+        c.lineWidth = 3;
+        c.shadowColor = this.color;
+        c.shadowBlur = 10;
+        c.beginPath();
+        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        c.stroke();
+        c.restore();
+      }
+    }
+
+    function triggerCrackers(x, y) {
+      playCrackerPop();
+
+      const mainColor = CRACKER_PALETTE[Math.floor(Math.random() * CRACKER_PALETTE.length)];
+      crackerShockwaves.push(new CrackerShockwave(x, y, mainColor));
+
+      const count = Math.floor(Math.random() * 20) + 45;
+      for (let i = 0; i < count; i++) {
+        const color = CRACKER_PALETTE[Math.floor(Math.random() * CRACKER_PALETTE.length)];
+        crackerParticles.push(new CrackerParticle(x, y, color));
+      }
+
+      if (!crackerAnimId) {
+        animateCrackersLoop();
+      }
+    }
+
+    function animateCrackersLoop() {
+      crackerCtx.clearRect(0, 0, crackerCanvas.width, crackerCanvas.height);
+
+      for (let i = crackerShockwaves.length - 1; i >= 0; i--) {
+        const sw = crackerShockwaves[i];
+        sw.update();
+        sw.draw(crackerCtx);
+        if (sw.alpha <= 0.03) {
+          crackerShockwaves.splice(i, 1);
+        }
+      }
+
+      for (let i = crackerParticles.length - 1; i >= 0; i--) {
+        const p = crackerParticles[i];
+        p.update();
+        p.draw(crackerCtx);
+        if (p.alpha <= 0.01) {
+          crackerParticles.splice(i, 1);
+        }
+      }
+
+      if (crackerParticles.length > 0 || crackerShockwaves.length > 0) {
+        crackerAnimId = requestAnimationFrame(animateCrackersLoop);
+      } else {
+        crackerAnimId = null;
+        crackerCtx.clearRect(0, 0, crackerCanvas.width, crackerCanvas.height);
+      }
+    }
+  </script>
+</body>
+</html>
